@@ -168,7 +168,7 @@ const EmployeeForm = () => {
                                             type="date"
                                             name="joiningdate"
                                             className="form-control"
-                                           
+                                            max={new Date().toISOString().split("T")[0]}
                                            
                         
                                           />
