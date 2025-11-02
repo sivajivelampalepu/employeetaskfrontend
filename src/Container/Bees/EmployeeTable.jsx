@@ -6,9 +6,11 @@ import EmployeeForm from './EmployeeForm';
 import axios from 'axios';
 import { DELETE_EMPLOYEE, GET_EMPLOYEE } from './employeeurls';
 import Swal from 'sweetalert2';
+import useLoaderStore from './useLoaderStore';
 
 export const MyContext=createContext()
 const EmployeeTable = () => {
+   const { setLoading } = useLoaderStore();
 
     const [empdata,setEmpdata]=useState([])
       const [showform, setShowform] = useState(false);
@@ -22,9 +24,12 @@ GetEmployeeDetails()
 },[])
 
   const GetEmployeeDetails=()=>{
+     setLoading(true)
     axios.get(GET_EMPLOYEE).then((res)=>{
+       setLoading(false)
         if(res!=undefined&&res!="")
         {
+
             setEmpdata(res.data)
             setData(res.data)
         }
@@ -45,12 +50,15 @@ GetEmployeeDetails()
     })
       .then((result) => {
         if (result.isConfirmed === true) {
+          setLoading(true)
           axios.delete(DELETE_EMPLOYEE + `${item._id}`)
             .then((res) => {
+              setLoading(false)
                Swal.fire({ text:res.message, icon: "info" });
                backtotable()
             })
             .catch(() => {
+               setLoading(false)
               setTimeout(() => {}, 1500);
             });
         }

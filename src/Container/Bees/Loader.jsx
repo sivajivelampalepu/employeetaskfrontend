@@ -1,5 +1,6 @@
 import React from "react";
-import useLoaderStore from "../store/useLoaderStore";
+import useLoaderStore from "./useLoaderStore";
+
 
 const Loader = () => {
   const loading = useLoaderStore((state) => state.loading);

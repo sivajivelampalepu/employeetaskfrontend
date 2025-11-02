@@ -7,9 +7,11 @@ import { SAVE_EMPLOYEE, UPDATE_EMPLOYEE } from './employeeurls';
 import Swal from 'sweetalert2';
 import { MyContext } from './EmployeeTable';
 import allowNumbersOnly, { AllowCharsOnly } from './CommonValidation';
+import useLoaderStore from './useLoaderStore';
 
 
 const EmployeeForm = () => {
+   const { setLoading } = useLoaderStore();
 
     const {type,rowdata,backtotable}=useContext(MyContext)
     const formik=useFormik({
@@ -35,10 +37,12 @@ const EmployeeForm = () => {
         onSubmit:(values)=>{
 
             if(type!=undefined&&type=="update")
-            {
+            { setLoading(true)
                  axios.put(UPDATE_EMPLOYEE+`${rowdata._id}`,values).then((res)=>{
+                   setLoading(false)
                 if(res!=undefined&&res!="")
                 {
+
                     if(res.data.status=="01")
                     {
                         Swal.fire({text:res.data.message,icon:"success"})
@@ -54,7 +58,9 @@ const EmployeeForm = () => {
             })
             }
             else{
+               setLoading(true)
                  axios.post(SAVE_EMPLOYEE,values).then((res)=>{
+                   setLoading(false)
                 if(res!=undefined&&res!="")
                 {
                     if(res.data.status=="01")
