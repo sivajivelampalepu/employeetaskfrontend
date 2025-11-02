@@ -1,5 +1,5 @@
 
-const BASE_URL="https://employeetaskfrontend-mhur.vercel.app/"
+const BASE_URL="https://employeetaskfrontend-mhur-w4xbigcak-sivajivelampalepus-projects.vercel.app/"
 
 export const  GET_EMPLOYEE=BASE_URL+"employee/employeelist"
 export const  SAVE_EMPLOYEE=BASE_URL+"employee/saveEmp"
